@@ -1,7 +1,7 @@
 #### reference : https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/helm/aws-load-balancer-controller/values.yaml
 # clusterName MUST match subnet tags: kubernetes.io/cluster/<clusterName>=shared|owned
 # If you already tagged subnets with another name, change this to match (do not change tags blindly).
-clusterName: default-cluster
+clusterName: argo-default-cluster
 region: ap-southeast-2
 
 vpcId: vpc-088b623dd6702c325
