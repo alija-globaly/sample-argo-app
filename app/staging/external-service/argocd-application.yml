@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io/background
+spec:
+  project: default
+  sources:
+  - repoURL: "https://github.com/alija-globaly/sample-argo-app.git"
+    targetRevision: "main"
+    ref: values
+  - repoURL: "https://argoproj.github.io/argo-helm"
+    targetRevision: "5.51.6" 
+    chart: argo-cd
+    helm:
+      releaseName: argocd
+      valueFiles:
+        - $values/gitops-values/staging/argocd-app-values.yml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+      - ServerSideApply=true
+      - PrunePropagationPolicy=foreground

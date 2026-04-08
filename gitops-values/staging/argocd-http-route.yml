@@ -1,0 +1,29 @@
+microservice:
+  name: argocd-server
+  service:
+    svcport: 80
+    type: NodePort
+  httproute:
+    enabled: true
+    urlRewriteEnabled: false
+    gateway:
+      name: "test-argocd-stage-alb-gateway"
+      namespace: "gateways-argocd"
+      sectionName: "https"
+    customHostname:
+      enabled: true
+      hosts:
+        - "argocd.test.agentcis.com"
+    httpMultipleRoute:
+      paths:
+        - "/"
+  targetGroupConfiguration:
+    enabled: false
+    targetType: "instance"
+    nodeSelector:
+      enabled: true
+      labelName: project
+      labelValue: Testing
+    healthCheckPath: "/"
+    healthCheckProtocol: "HTTP"
+    healthCheckPort: "80"
