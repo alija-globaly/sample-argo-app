@@ -5,20 +5,18 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "10"
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io/background
 spec:
   project: default
   sources:
   - repoURL: "https://github.com/alija-globaly/sample-argo-app.git"
     targetRevision: "main"
-    ref: values    
+    ref: values
   - repoURL: "https://github.com/GlobalyHub/GH-infra-and-k8s-charts-central.git"
-    targetRevision: "staging"          # branch to deploy
-    path: "helm-charts/self-managed/aws-elb-http-target" # path to the Helm chart
+    targetRevision: "staging"
+    path: "helm-charts/self-managed/aws-elb-http-target"
     helm:
       valueFiles:
-        - $values/gitops-values/staging/argocd-http-route.yml   # your backend values file         
+        - $values/gitops-values/staging/argocd-http-route.yml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
@@ -27,7 +25,7 @@ spec:
     kind: HTTPRoute
     jsonPointers:
     - /spec/parentRefs
-    - /status    
+    - /status
   - group: gateway.k8s.aws
     kind: LoadBalancerConfiguration
     jqPathExpressions:
@@ -41,11 +39,11 @@ spec:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
       - ServerSideApply=true
-      - PruneLast=true 
-      - PrunePropagationPolicy=foreground      
+      - PruneLast=true
+      - PrunePropagationPolicy=foreground
     retry:
-      limit: -1            # ← unlimited retries
+      limit: -1
       backoff:
-        duration: 30s      # ← base interval of 30 seconds
+        duration: 30s
         factor: 2
-        maxDuration: 10m   # ← raised ceiling to accommodate longer backoff chain     
+        maxDuration: 10m

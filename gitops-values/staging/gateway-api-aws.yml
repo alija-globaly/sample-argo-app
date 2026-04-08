@@ -1,14 +1,15 @@
 #### reference : https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/helm/aws-load-balancer-controller/values.yaml
-# Optional: Resource limits
+# clusterName MUST match subnet tags: kubernetes.io/cluster/<clusterName>=shared|owned
+# If you already tagged subnets with another name, change this to match (do not change tags blindly).
 clusterName: default-cluster
 region: ap-southeast-2
 
-vpcId: vpc-26227943
+vpcId: vpc-088b623dd6702c325
 serviceAccount:
   create: true
   name: aws-load-balancer-controller
   annotations:
-    eks.amazonaws.com/role-arn: "arn:aws:iam::834033184010:role/Agentcis-staging-K8s-EC2-IRSA-role"
+    eks.amazonaws.com/role-arn: "arn:aws:iam::834033184010:role/Testing-testing-K8s-EC2-IRSA-role"
 
 hostNetwork: true
 replicaCount: 1
@@ -41,19 +42,17 @@ controllerConfig:
   
   
 
-######### using affinity to deploy to node which have ec2 master
-#### command to tag label
-#### kubectl label node aws-elb--master-172-34-17-55 role=aws-elb-master
+# Prefer control-plane / project nodes (matches typical Testing cluster labels)
 affinity:
   nodeAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 100
         preference:
           matchExpressions:
-            - key: role
+            - key: project
               operator: In
               values:
-                - aws-elb-master
+                - Testing
 
  
 

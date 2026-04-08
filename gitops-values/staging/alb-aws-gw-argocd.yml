@@ -11,3 +11,6 @@ gateway:
       scheme: internet-facing
       ipAddressType: ipv4
       defaultCertificate: "arn:aws:acm:ap-southeast-2:834033184010:certificate/bd8f64cc-ddbc-4b0e-81c2-fe5d05ceca54"
+      additionalCertificates:
+        enabled: false
+        arns: []
