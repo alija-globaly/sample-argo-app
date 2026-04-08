@@ -1,7 +1,8 @@
 server:
   service:
     type: NodePort
-    nodePort: 30081
+    # argo-cd Helm chart expects nodePortHttp / nodePortHttps (not `nodePort`)
+    nodePortHttp: 30081
 
   extraArgs:
     - --insecure
