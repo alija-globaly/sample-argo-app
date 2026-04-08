@@ -1,6 +1,6 @@
 #### reference : https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/helm/aws-load-balancer-controller/values.yaml
-# clusterName MUST match subnet tags: kubernetes.io/cluster/<clusterName>=shared|owned
-# If you already tagged subnets with another name, change this to match (do not change tags blindly).
+# clusterName MUST match: kubernetes.io/cluster/<clusterName>=shared|owned on each subnet used.
+# Internet-facing ALBs need at least TWO public subnets in TWO different AZs with the same tags.
 clusterName: argo-default-cluster
 region: ap-southeast-2
 
