@@ -22,6 +22,12 @@ spec:
       releaseName: argocd
       valueFiles:
         - $values/gitops-values/staging/argocd-app-values.yml
+      # Ensures NodePort even if valueFiles merge/ref is wrong (chart default is ClusterIP)
+      parameters:
+        - name: server.service.type
+          value: NodePort
+        - name: server.service.nodePortHttp
+          value: "30081"
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
@@ -31,7 +37,5 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
       - PruneLast=true
-      - ServerSideApply=true
       - PrunePropagationPolicy=foreground
