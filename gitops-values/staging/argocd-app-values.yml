@@ -1,8 +1,8 @@
 server:
   service:
     type: NodePort
-    # argo-cd Helm chart expects nodePortHttp / nodePortHttps (not `nodePort`)
     nodePortHttp: 30081
+    nodePortHttps: 30443  # required for ALB HTTPS listener
 
   extraArgs:
     - --insecure
