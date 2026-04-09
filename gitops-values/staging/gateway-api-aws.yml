@@ -12,6 +12,22 @@ serviceAccount:
     eks.amazonaws.com/role-arn: "arn:aws:iam::834033184010:role/Testing-testing-K8s-EC2-IRSA-role"
 
 hostNetwork: true
+
+
+
+
+# Required when hostNetwork is true (especially with Cilium / non-VPC-CNI): otherwise apiserver → webhook calls
+# often hit deadline exceeded on mtargetgroupbinding.elbv2.k8s.aws / aws-load-balancer-webhook-service.
+# https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
+dnsPolicy: ClusterFirstWithHostNet
+
+
+
+
+
+
+
+
 replicaCount: 1
 
 # resources:
