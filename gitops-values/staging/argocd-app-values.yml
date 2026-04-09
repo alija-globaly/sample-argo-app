@@ -2,7 +2,7 @@ server:
   service:
     type: NodePort
     nodePortHttp: 30081
-    nodePortHttps: 30443  # required for ALB HTTPS listener
+    # nodePortHttps: 30443  #  for ALB HTTPS listener
 
   extraArgs:
     - --insecure

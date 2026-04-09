@@ -1,6 +1,6 @@
-# Values for GH-infra aws-elb-http-target chart (must match that chart's values schema).
 microservice:
   name: argocd-server
+  serviceNameOverride: argocd-server   
   service:
     svcport: 80
     type: NodePort

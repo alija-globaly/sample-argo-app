@@ -12,7 +12,7 @@ spec:
     targetRevision: "main"
     ref: values
   - repoURL: "https://github.com/GlobalyHub/GH-infra-and-k8s-charts-central.git"
-    targetRevision: "staging"
+    targetRevision: "alija-argocd-http-target"
     path: "helm-charts/self-managed/aws-elb-http-target"
     helm:
       valueFiles:

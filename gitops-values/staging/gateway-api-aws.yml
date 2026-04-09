@@ -42,8 +42,9 @@ controllerConfig:
   
   
 
-# Prefer control-plane / project nodes (matches typical Testing cluster labels)
-affinity:
+######### using affinity to deploy to node which have ec2 master
+#### command to tag label
+#### kubectl label node aws-elb--master-172-34-17-55 role=aws-elb-masteraffinity:
   nodeAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 100
