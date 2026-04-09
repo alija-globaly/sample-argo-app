@@ -14,7 +14,7 @@ spec:
     targetRevision: "main"
     ref: values    
   - repoURL: "https://github.com/GlobalyHub/GH-infra-and-k8s-charts-central.git"
-    targetRevision: "alija-argocd-http-target"          # branch to deploy
+    targetRevision: "staging"          # branch to deploy
     path: "helm-charts/self-managed/aws-gw-api" # path to the Helm chart
     helm:
       valueFiles:
