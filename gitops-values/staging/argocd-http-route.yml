@@ -19,7 +19,7 @@ microservice:
       paths:
         - "/"
   targetGroupConfiguration:
-    enabled: false
+    enabled: true
     targetType: "instance"
     nodeSelector:
       enabled: true
@@ -27,4 +27,4 @@ microservice:
       labelValue: Testing
     healthCheckPath: "/"
     healthCheckProtocol: "HTTP"
-    healthCheckPort: "80"
+    healthCheckPort: "30081"

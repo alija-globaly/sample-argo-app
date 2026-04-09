@@ -63,3 +63,6 @@ enableWaf: false
 enableWafv2: false
 
 logLevel: info
+
+subnetAutoDiscovery:
+  enabled: true
