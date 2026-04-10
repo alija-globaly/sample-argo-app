@@ -1,51 +1,43 @@
 microservice:
   name: argocd-server
-  service:
-    svcport: 80
-    type: NodePort
-    # Align with gitops-values/staging/others/argocd-app-values.yml + argocd-server-svc alias manifest
-    nodePortHttp: 30081
-    nodePortHttps: 30443
+
   httproute:
     enabled: true
     urlRewriteEnabled: false
-    # Must match aws-gw-api Helm output: {k8s_api_gateway.name}-alb-gateway in Application destination namespace
-    # (see gitops-values/staging/others/alb-aws-gw-argocd.yml → test-argocd-stage-alb-gateway @ gateways-argocd)
+
     gateway:
       name: "test-argocd-stage-alb-gateway"
       namespace: "gateways-argocd"
       sectionName: "https"
+
     customHostname:
       enabled: true
       hosts:
         - "argocd.test.agentcis.com"
+
     httpMultipleRoute:
       paths:
-        - "/"  
+        - "/"
+
   targetGroupConfiguration:
     enabled: true
 
-
-
-    # Chart default was argocd-server-svc; upstream argo-cd Helm creates Service "argocd-server" only (see kubectl get svc -n argocd).
     targetServiceName: argocd-server
-
-
-
-
-
-    
     targetType: "instance"
+
+    # Optional (only if nodes are labeled correctly)
     nodeSelector:
       enabled: true
       labelName: project
-      labelValue: Testing 
+      labelValue: Testing
+
     healthCheckPath: "/"
     healthCheckProtocol: "HTTP"
-    healthCheckPort: "80"
+    healthCheckPort: "traffic-port"   # ✅ FIXED
     healthCheckInterval: 5
-    healthCheckTimeout: 4      # ← ADD THIS LINE
+    healthCheckTimeout: 4
     healthyThresholdCount: 2
     unhealthyThresholdCount: 2
+
     matcher:
-      httpCode: "200-399,401-404"       
+      httpCode: "200-399,401-404"

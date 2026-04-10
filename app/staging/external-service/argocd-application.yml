@@ -26,10 +26,10 @@ spec:
       parameters:
         - name: server.service.type
           value: NodePort
-        - name: server.service.nodePortHttp
-          value: "30081"
-        - name: server.service.nodePortHttps
-          value: "30443"
+        # - name: server.service.nodePortHttp
+        #   value: "30081"
+        # - name: server.service.nodePortHttps
+        #   value: "30443"
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
